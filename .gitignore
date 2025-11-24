@@ -1,0 +1,23 @@
+# WordPress specific
+.htaccess
+wp-config.php
+
+# OS/IDE specific
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node modules (if using)
+node_modules/
+package-lock.json
+
+# Build files (if applicable)
+*.log
+*.cache
+
+# Temporary files
+*~
+.*.swp
