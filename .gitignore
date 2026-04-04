@@ -1,23 +1,42 @@
-# WordPress specific
-.htaccess
-wp-config.php
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# OS/IDE specific
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
-.vscode/
-*.swp
-*.swo
-*~
+*.pem
 
-# Node modules (if using)
-node_modules/
-package-lock.json
+# source images and reference docs (already in public/)
+/images
+*.pdf
 
-# Build files (if applicable)
-*.log
-*.cache
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Temporary files
-*~
-.*.swp
+# local env files
+.env
+.env.production
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
