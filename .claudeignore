@@ -1,0 +1,8 @@
+node_modules/
+.next/
+public/images/
+*.jpg
+*.png
+*.svg
+*.ico
+.git/

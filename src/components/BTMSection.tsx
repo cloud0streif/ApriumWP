@@ -1,98 +1,69 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const whyItems = [
+const blocks = [
   {
-    bold: "Electricity delivered in 18–36 months",
-    rest: "vs. 48–180",
+    headline: "Power in 18–36 Months",
+    subheadline: "Not the 4–15 years of traditional grid-tied builds",
+    details: [
+      "Interconnection queues eliminated entirely",
+      "Permitting processes streamlined through established regulatory relationships",
+    ],
   },
   {
-    bold: "Tier IV reliability",
-    rest: "independent of grid constraints",
+    headline: "Tier IV Reliability, Grid-Independent",
+    subheadline: "Best-in-class uptime with zero exposure to grid instability",
+    details: [
+      "Fully redundant design with multiple independent generation trains",
+      "Redundant fuel supply including onsite storage for Tier IV continuity",
+    ],
   },
   {
-    bold: "Reduces exposure to grid congestion and instability",
-    rest: "as load growth strains intermittent heavy ISOs",
+    headline: "Insulated From Grid Congestion",
+    subheadline: "As load growth strains ISO infrastructure, BTM customers are unaffected",
+    details: [
+      "No dependence on transmission capacity or grid dispatch priority",
+      "Protected from the cascading instability of intermittent-heavy grid operators",
+    ],
   },
   {
-    bold: "Cost competitive",
-    rest: "versus fully loaded firmed grid pricing",
+    headline: "Cost Competitive With the Grid",
+    subheadline: "Fully loaded BTM pricing matches or beats firmed grid alternatives",
+    details: [
+      "Eliminates interconnect, capacity, and transmission cost layers",
+      "EPC pricing is all-in — no hidden escalators or ancillary charges",
+    ],
   },
   {
-    bold: "Mitigation of price risk",
-    rest: "— BTM pricing is all-in and known; grid pricing is uncertain given load step changes",
+    headline: "Price Certainty",
+    subheadline: "Fixed, known pricing in a market defined by uncertainty",
+    details: [
+      "BTM contracts are all-in and fixed — grid pricing shifts unpredictably with load step changes",
+      "Aprium owns and operates assets, directly aligning our incentives with customer outcomes",
+    ],
   },
   {
-    bold: "Scales without re-entering interconnection queues",
-    rest: "",
+    headline: "Scales On Your Timeline",
+    subheadline: "No re-entering interconnection queues as your load grows",
+    details: [
+      "Repeatable modular process: 300 MW frame blocks and 20 MW reciprocating engine blocks",
+      "Water infrastructure expertise enables development in constrained locations",
+    ],
   },
   {
-    bold: "No impact on community electricity pricing,",
-    rest: "with potential to lower electric bills if backup generation is interconnected as peaking units in the future",
+    headline: "Zero Community Rate Impact",
+    subheadline: "No ratepayer burden — with the potential to actively lower local bills",
+    details: [
+      "BTM generation has no effect on community electricity pricing",
+      "Backup capacity can be interconnected as peaking units as regulations allow, benefiting the broader grid",
+    ],
   },
 ];
-
-const howItems = [
-  {
-    bold: "Interconnect queues eliminated",
-    rest: "and permitting processes streamlined",
-  },
-  {
-    bold: "Fully redundant design,",
-    rest: "with multiple trains",
-  },
-  {
-    bold: "Repeatable Process:",
-    rest: "300 MW frame blocks, 20 MW modular recip blocks",
-  },
-  {
-    bold: "Redundant fuel supply,",
-    rest: "including onsite for Tier 4",
-  },
-  {
-    bold: "Water expertise",
-    rest: "allows builds in water-constrained locations",
-  },
-  {
-    bold: "Avoids interconnect, capacity, and transmission costs;",
-    rest: "EPC pricing is fully loaded",
-  },
-  {
-    bold: "Efficient utilization of backup generation,",
-    rest: "with interconnection as peakers as regulations allow",
-  },
-  {
-    bold: "We own and operate assets,",
-    rest: "aligning risk and incentives with customers",
-  },
-];
-
-function CheckItem({ bold, rest }: { bold: string; rest: string }) {
-  return (
-    <div className="flex gap-3 rounded-md px-3 py-3 transition-colors hover:bg-aprium-orange/5" style={{ backgroundColor: "rgba(255, 255, 255, 0.80)" }}>
-      {/* Orange checkmark */}
-      <svg
-        className="mt-0.5 h-5 w-5 shrink-0 text-aprium-orange"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fillRule="evenodd"
-          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-          clipRule="evenodd"
-        />
-      </svg>
-      <p className="text-sm leading-relaxed text-aprium-black">
-        <span className="font-bold">{bold}</span>
-        {rest && ` ${rest}`}
-      </p>
-    </div>
-  );
-}
 
 export default function BTMSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -102,56 +73,118 @@ export default function BTMSection() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("btm-col-visible");
+            entry.target.classList.add("fade-in-visible");
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
 
-    const cols = section.querySelectorAll(".btm-col");
-    cols.forEach((col) => observer.observe(col));
+    const items = section.querySelectorAll(".fade-in-item");
+    items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="why-btm" className="px-6 py-10 lg:px-10 lg:py-16" style={{ backgroundColor: "rgba(247, 247, 247, 0.75)" }}>
-      <div className="mx-auto max-w-7xl" ref={sectionRef}>
+    <section className="px-6 py-8 lg:px-10 lg:py-10">
+      <div className="mx-auto max-w-4xl" ref={sectionRef}>
         {/* Section header */}
-        <div className="mb-12 text-center">
+        <div className="mb-8 text-center">
           <h2 className="text-3xl font-bold text-aprium-purple md:text-4xl">
             Behind the Meter Power
           </h2>
           <div className="mx-auto mt-3 h-1 w-16 rounded-full bg-aprium-orange" />
         </div>
 
-        {/* Two columns */}
-        <div className="grid gap-8 lg:grid-cols-2">
-          {/* Why column */}
-          <div className="btm-col translate-x-[-40px] opacity-0 transition-all duration-700 ease-out">
-            <div className="mb-6 rounded-lg bg-gradient-to-r from-[#2a3a8f] to-aprium-purple px-5 py-3">
-              <h3 className="text-lg font-bold text-white">Why</h3>
-            </div>
-            <div className="space-y-1">
-              {whyItems.map((item) => (
-                <CheckItem key={item.bold} bold={item.bold} rest={item.rest} />
-              ))}
-            </div>
-          </div>
+        {/* Card stack with subtle gradient overlay */}
+        <div
+          className="flex flex-col gap-3 rounded-2xl p-3 lg:p-4"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(61,17,82,0.03) 0%, rgba(247,148,29,0.03) 100%)",
+          }}
+        >
+          {blocks.map((block, i) => {
+            const isOpen = openIndex === i;
 
-          {/* How column */}
-          <div className="btm-col translate-x-[40px] opacity-0 transition-all duration-700 ease-out">
-            <div className="mb-6 rounded-lg bg-gradient-to-r from-[#2a3a8f] to-aprium-purple px-5 py-3">
-              <h3 className="text-lg font-bold text-white">How</h3>
-            </div>
-            <div className="space-y-1">
-              {howItems.map((item) => (
-                <CheckItem key={item.bold} bold={item.bold} rest={item.rest} />
-              ))}
-            </div>
-          </div>
+            return (
+              <div
+                key={block.headline}
+                className="fade-in-item translate-y-4 opacity-0 transition-all duration-500 ease-out"
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                <div
+                  className="rounded-xl transition-all duration-200 ease-out"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.75)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255, 255, 255, 0.9)",
+                    borderRadius: "12px",
+                    boxShadow: isOpen
+                      ? "0 6px 32px rgba(61, 17, 82, 0.12)"
+                      : "0 4px 24px rgba(61, 17, 82, 0.08)",
+                  }}
+                >
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                    className={`group flex w-full items-start justify-between gap-4 rounded-xl px-6 py-5 text-left transition-all duration-200 ${
+                      isOpen
+                        ? "border-l-4 border-l-aprium-orange"
+                        : "border-l-4 border-l-transparent hover:border-l-aprium-orange"
+                    }`}
+                  >
+                    <div className="min-w-0">
+                      <h3 className="text-2xl font-bold text-aprium-purple">
+                        {block.headline}
+                      </h3>
+                      <p className="mt-1 text-base font-normal text-gray-500">
+                        {block.subheadline}
+                      </p>
+                    </div>
+
+                    {/* +/× toggle */}
+                    <span
+                      className="mt-1 shrink-0 text-2xl leading-none text-aprium-orange"
+                      style={{
+                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                        transition: "transform 200ms ease",
+                      }}
+                    >
+                      +
+                    </span>
+                  </button>
+
+                  {/* Expandable details — slide + fade, all on one element */}
+                  <div
+                    className="overflow-hidden"
+                    style={{
+                      maxHeight: isOpen ? "200px" : "0px",
+                      opacity: isOpen ? 1 : 0,
+                      transform: isOpen ? "translateY(0)" : "translateY(-8px)",
+                      transition: "max-height 280ms cubic-bezier(0.4, 0, 0.2, 1), opacity 280ms cubic-bezier(0.4, 0, 0.2, 1), transform 280ms cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  >
+                    <div className="px-6 pb-6 pt-2">
+                      {block.details.map((detail) => (
+                        <p
+                          key={detail}
+                          className="flex items-start gap-2 py-1 pl-4 text-sm leading-relaxed text-gray-600"
+                        >
+                          <span className="mt-0.5 shrink-0 text-aprium-orange">
+                            &rsaquo;
+                          </span>
+                          {detail}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -14,7 +14,7 @@ const offices = [
 
 export default function Footer() {
   return (
-    <footer className="bg-aprium-purple px-6 py-12 text-white lg:px-10">
+    <footer className="bg-aprium-purple px-6 py-12 text-white lg:px-10" style={{ borderTop: "2px solid #F7941D" }}>
       <div className="mx-auto max-w-7xl">
         {/* Logo */}
         <div className="mb-8">

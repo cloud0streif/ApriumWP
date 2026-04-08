@@ -1,26 +1,57 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 
 const teamMembers = [
-  { name: "Martijn Dekker", role: "CEO", initials: "MD", src: "/team/martijn-dekker.jpg", objectPosition: "" },
-  { name: "Michael Neese", role: "CTO", initials: "MN", src: "/team/michael-neese.jpg", objectPosition: "50% 20%", scale: "170" },
-  { name: "Drew Lichter", role: "President", initials: "DL", src: "/team/drew-lichter.jpg", objectPosition: "top" },
-  { name: "Ondrej Sestak", role: "CDO", initials: "OS", src: "/team/ondrej-sestak.jpg", objectPosition: "" },
+  {
+    name: "Martijn Dekker",
+    role: "CEO",
+    initials: "MD",
+    src: "/team/martijn-dekker.jpg",
+    objectPosition: "",
+    bio: "Martijn Dekker brings over 30 years of extensive leadership experience in the energy industry covering all aspects of upstream, midstream oil and gas, gas to liquids, carbon markets, and developing clean energy strategies. Martijn earned an MS in Chemical Engineering from the University of Technology Eindhoven, and an MS in Business Management from Aberdeen University.",
+  },
+  {
+    name: "Michael Neese",
+    role: "CTO",
+    initials: "MN",
+    src: "/team/michael-neese.jpg",
+    objectPosition: "50% 20%",
+    scale: "170",
+    bio: "Michael Neese has more than 30 years of industry expertise across multiple disciplines including water and wastewater treatment, groundwater remediation, aquifer storage and recovery, hazardous waste disposal, power generation and distribution, environmental engineering, and large utilities. Mr. Neese earned a BS in Agricultural Engineering from Texas Tech University.",
+  },
+  {
+    name: "Drew Lichter",
+    role: "President",
+    initials: "DL",
+    src: "/team/drew-lichter.jpg",
+    objectPosition: "top",
+    bio: "Drew has 25+ years experience in the commodities space, beginning as an options trader and member of the Chicago Board of Trade, Commodity Options Desk Head at RBC Capital Markets, Head of Corporate Finance at AK Steel, and senior positions at Northwind Resources and Mobius Risk Group. He has extensive experience in structuring and negotiating long-term offtake agreements; debt, equity, and credit for trade, project, and corporate finance; optimization of energy assets; and corporate leadership and governance. He holds a BA in Economics from DePauw University.",
+  },
+  {
+    name: "Ondrej Sestak",
+    role: "CDO",
+    initials: "OS",
+    src: "/team/ondrej-sestak.jpg",
+    objectPosition: "",
+    bio: "Ondrej brings 15 years of technical and commercial experience across energy infrastructure, private equity, and project development to Aprium's platform. Trained as a reservoir and energy engineer at Stanford and UT Austin, he has structured and evaluated complex energy projects across operator, engineering, and investor roles spanning multiple geographies and asset classes. He also serves on the board of a publicly traded data center development company, giving him direct insight into the capital formation and operational requirements that drive successful large-scale digital infrastructure.",
+  },
   {
     name: "Eddy van der Paardt",
     role: "Advisor, Strategy and Capital",
     initials: "EP",
     src: "/team/eddy-van-der-paardt.jpg",
     objectPosition: "top",
+    bio: "Eddy is an Impact Investor with a mission to empower extraordinary entrepreneurs and businesses to aspire for greatness and improve the world. His investment focus is on early stage investments in disruptive Ag-tech and Clean-tech companies. Eddy offers a unique perspective based on 25 years of experience in founding, building and investing in growth ventures. He co-founded Virtu Capital, an impact investment firm. He previously served as Chief Investment Officer and Head of Strategy for a Family Office. Eddy holds an MBA from Stanford's Graduate School of Business.",
   },
   {
     name: "Rob Condon",
-    role: "Accounting and Administration",
+    role: "Accounting & Administration",
     initials: "RC",
-    src: "/team/rob-condon.png",
+    src: "/team/rob-condon.jpg",
     objectPosition: "",
+    bio: "Rob Condon has over 30 years of public accounting experience, beginning his career as Senior Manager of Ernst & Young's Houston Entrepreneurial Services group. Rob has deep expertise in managing robust CFO/Controller, FP&A, Fund Administration and back-office functions. Rob earned his BBA in Accounting from University of Houston, and is licensed as a CPA in the state of Texas and is a Certified M&A Advisor.",
   },
   {
     name: "Kevin Paley",
@@ -28,19 +59,109 @@ const teamMembers = [
     initials: "KP",
     src: "/team/kevin-paley.jpg",
     objectPosition: "center 15%",
-  },
-  {
-    name: "Werner, Ayers, McDonald",
-    role: "Legal",
-    initials: "WA",
-    src: "/team/wam-logo.png",
-    objectPosition: "",
-    isLogo: true,
+    bio: "",
   },
 ];
 
+function BioModal({
+  member,
+  onClose,
+}: {
+  member: (typeof teamMembers)[number];
+  onClose: () => void;
+}) {
+  const [closing, setClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setClosing(true);
+    setTimeout(() => {
+      setClosing(false);
+      onClose();
+    }, 200);
+  }, [onClose]);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [handleClose]);
+
+  const animClass = closing ? "opacity-0 scale-95" : "opacity-100 scale-100";
+
+  return (
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-200 ${
+        closing ? "opacity-0" : "opacity-100"
+      }`}
+      onClick={handleClose}
+    >
+      <div
+        className={`relative mx-4 w-full max-w-lg rounded-xl bg-white p-8 shadow-2xl transition-all duration-200 ease-out ${animClass}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={handleClose}
+          className="absolute right-4 top-4 text-gray-400 transition-colors hover:text-gray-600"
+          aria-label="Close"
+        >
+          <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fillRule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+
+        {/* Photo */}
+        <div className="mb-4 flex justify-center">
+          {member.src ? (
+            <div className="h-24 w-24 overflow-hidden rounded-lg border-2 border-aprium-purple">
+              <Image
+                src={member.src}
+                alt={member.name}
+                width={96}
+                height={96}
+                className={`h-full w-full ${member.isLogo ? "object-contain p-2" : "object-cover"}`}
+                style={{
+                  ...(member.objectPosition ? { objectPosition: member.objectPosition } : {}),
+                  ...(member.scale
+                    ? {
+                        transform: `scale(${Number(member.scale) / 100})`,
+                        transformOrigin: member.objectPosition || "center",
+                      }
+                    : {}),
+                }}
+              />
+            </div>
+          ) : (
+            <div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-aprium-purple bg-aprium-purple/5">
+              <span className="text-2xl font-bold text-aprium-purple">{member.initials}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Name and title */}
+        <h3 className="text-center text-lg font-bold text-aprium-purple">{member.name}</h3>
+        <p className="mb-4 text-center text-sm text-aprium-orange">{member.role}</p>
+
+        {/* Bio */}
+        {member.bio ? (
+          <p className="text-sm leading-relaxed text-gray-600">{member.bio}</p>
+        ) : (
+          <p className="text-center text-sm italic text-gray-400">Bio coming soon.</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Team() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [selectedMember, setSelectedMember] = useState<(typeof teamMembers)[number] | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -65,24 +186,15 @@ export default function Team() {
   }, []);
 
   return (
-    <section id="our-team" className="px-6 py-10 lg:px-10 lg:py-16" style={{ backgroundColor: "rgba(247, 247, 247, 0.75)" }}>
+    <section className="px-6 py-10 lg:px-10 lg:py-16" style={{ backgroundColor: "rgba(247, 247, 247, 0.75)" }}>
       <div className="mx-auto max-w-7xl" ref={sectionRef}>
         {/* Section header */}
-        <div className="mb-6 text-center">
+        <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold text-aprium-purple md:text-4xl">
             Who We Are
           </h2>
           <div className="mx-auto mt-3 h-1 w-16 rounded-full bg-aprium-orange" />
         </div>
-
-        {/* Intro blurb */}
-        <p className="mx-auto mb-12 max-w-3xl text-center text-sm leading-relaxed text-gray-600 md:text-base">
-          We have led $10B+ of power, water, and gas infrastructure development.
-          We have traded and marketed physical and financial power at scale across
-          the USA, as well as key feedstocks and environmental attributes. We have
-          led divisions at global companies and have a track record of successful
-          execution as entrepreneurs.
-        </p>
 
         {/* Team grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -92,41 +204,52 @@ export default function Team() {
               className="fade-in-item translate-y-6 opacity-0 transition-all duration-500 ease-out"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <div className="group rounded-lg bg-white p-5 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-                {member.src ? (
-                  <div className="mx-auto mb-4 h-28 w-28 overflow-hidden rounded-lg border-2 border-aprium-purple">
-                    <Image
-                      src={member.src}
-                      alt={member.name}
-                      width={112}
-                      height={112}
-                      className={`h-full w-full ${member.isLogo ? "object-contain p-3" : "object-cover"}`}
-                      style={{
-                        ...(member.objectPosition ? { objectPosition: member.objectPosition } : {}),
-                        ...(member.scale ? {
-                          transform: `scale(${Number(member.scale) / 100})`,
-                          transformOrigin: member.objectPosition || "center",
-                        } : {}),
-                      }}
-                    />
-                  </div>
-                ) : (
-                  /* Initials fallback for members without photos */
-                  <div className="mx-auto mb-4 flex h-28 w-28 items-center justify-center rounded-lg border-2 border-aprium-purple bg-aprium-purple/5">
-                    <span className="text-2xl font-bold text-aprium-purple">
-                      {member.initials}
-                    </span>
-                  </div>
-                )}
-                <h3 className="text-sm font-bold text-aprium-purple">
-                  {member.name}
-                </h3>
-                <p className="mt-1 text-xs text-aprium-orange">{member.role}</p>
-              </div>
+              <button
+                onClick={() => setSelectedMember(member)}
+                className="w-full text-left"
+              >
+                <div className="group rounded-lg bg-white p-5 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer">
+                  {member.src ? (
+                    <div className="mx-auto mb-4 h-28 w-28 overflow-hidden rounded-lg border-2 border-aprium-purple">
+                      <Image
+                        src={member.src}
+                        alt={member.name}
+                        width={112}
+                        height={112}
+                        className={`h-full w-full ${member.isLogo ? "object-contain p-3" : "object-cover"}`}
+                        style={{
+                          ...(member.objectPosition ? { objectPosition: member.objectPosition } : {}),
+                          ...(member.scale
+                            ? {
+                                transform: `scale(${Number(member.scale) / 100})`,
+                                transformOrigin: member.objectPosition || "center",
+                              }
+                            : {}),
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="mx-auto mb-4 flex h-28 w-28 items-center justify-center rounded-lg border-2 border-aprium-purple bg-aprium-purple/5">
+                      <span className="text-2xl font-bold text-aprium-purple">
+                        {member.initials}
+                      </span>
+                    </div>
+                  )}
+                  <h3 className="text-sm font-bold text-aprium-purple">
+                    {member.name}
+                  </h3>
+                  <p className="mt-1 text-xs text-aprium-orange">{member.role}</p>
+                </div>
+              </button>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Bio modal */}
+      {selectedMember && (
+        <BioModal member={selectedMember} onClose={() => setSelectedMember(null)} />
+      )}
     </section>
   );
 }

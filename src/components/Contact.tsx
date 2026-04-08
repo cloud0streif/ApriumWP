@@ -116,7 +116,7 @@ export default function Contact() {
     }`;
 
   return (
-    <section id="contact" className="px-6 py-10 lg:px-10 lg:py-16" style={{ backgroundColor: "rgba(255, 255, 255, 0.85)" }}>
+    <section className="px-6 py-10 lg:px-10 lg:py-16" style={{ backgroundColor: "rgba(255, 255, 255, 0.85)" }}>
       <div className="mx-auto max-w-7xl" ref={sectionRef}>
         {/* Section header */}
         <div className="mb-8 text-center">

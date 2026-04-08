@@ -2,46 +2,26 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const navLinks = [
-  { label: "Why BTM", href: "#why-btm" },
-  { label: "Capabilities", href: "#capabilities" },
-  { label: "Our Team", href: "#our-team" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Why BTM", href: "/why-btm" },
+  { label: "Capabilities", href: "/capabilities" },
+  { label: "Our Team", href: "/team" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const sectionIds = navLinks.map((l) => l.href.replace("#", ""));
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-50% 0px -50% 0px" }
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   return (
@@ -69,7 +49,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={`text-sm font-medium transition-colors ${
-                activeSection === link.href.replace("#", "")
+                pathname === link.href
                   ? "text-aprium-orange"
                   : "text-aprium-black hover:text-aprium-purple"
               }`}
@@ -102,7 +82,11 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="block py-3 text-sm font-medium text-aprium-black hover:text-aprium-purple transition-colors"
+              className={`block py-3 text-sm font-medium transition-colors ${
+                pathname === link.href
+                  ? "text-aprium-orange"
+                  : "text-aprium-black hover:text-aprium-purple"
+              }`}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
