@@ -32,6 +32,28 @@ export default function TickerStrip() {
   const [prev, setPrev] = useState<number | null>(null);
   const [paused, setPaused] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef<number | null>(null);
+
+  const goTo = useCallback((index: number) => {
+    setActive((current) => {
+      setPrev(current);
+      return index;
+    });
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setPrev(null), 400);
+
+    // Reset auto-advance timer
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setActive((current) => {
+        setPrev(current);
+        return (current + 1) % items.length;
+      });
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setPrev(null), 400);
+    }, 8000);
+  }, []);
 
   const advance = useCallback(() => {
     setActive((current) => {
@@ -44,20 +66,45 @@ export default function TickerStrip() {
   useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
 
   useEffect(() => {
     if (paused) return;
-    const timer = setInterval(advance, 8000);
-    return () => clearInterval(timer);
+    intervalRef.current = setInterval(advance, 8000);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [paused, advance]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    touchStartX.current = null;
+
+    if (Math.abs(delta) < 50) return;
+
+    if (delta > 0) {
+      // Swipe left — next
+      goTo((active + 1) % items.length);
+    } else {
+      // Swipe right — previous
+      goTo((active - 1 + items.length) % items.length);
+    }
+  };
 
   return (
     <div
       className="w-full bg-aprium-purple/75 backdrop-blur-sm"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="relative h-[120px] overflow-hidden">
         {/* Text area — vertically centered in upper ~80% */}
@@ -83,12 +130,7 @@ export default function TickerStrip() {
           {items.map((_, i) => (
             <button
               key={i}
-              onClick={() => {
-                setPrev(active);
-                setActive(i);
-                if (timeoutRef.current) clearTimeout(timeoutRef.current);
-                timeoutRef.current = setTimeout(() => setPrev(null), 400);
-              }}
+              onClick={() => goTo(i)}
               className={`h-1.5 w-1.5 rounded-full transition-colors sm:h-2 sm:w-2 ${
                 i === active ? "bg-aprium-orange" : "bg-white/60"
               }`}

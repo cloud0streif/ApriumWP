@@ -60,7 +60,7 @@ export default function StatStrip() {
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-aprium-orange" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10" ref={sectionRef}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-0 lg:grid-cols-4">
           {stats.map((item, i) => (
             <div
               key={item.label}
@@ -71,7 +71,7 @@ export default function StatStrip() {
               }`}
               style={{ transitionDelay: `${i * 120}ms` }}
             >
-              <div className="group relative px-6 py-6 text-center lg:py-0">
+              <div className="group relative px-6 py-2 text-center md:py-6 lg:py-0">
                 {/* Stat number */}
                 <p
                   className="text-5xl font-bold text-aprium-orange transition-all duration-250"
@@ -92,9 +92,8 @@ export default function StatStrip() {
                   {item.label}
                 </p>
 
-                {/* Descriptor — absolutely positioned, no layout shift */}
-                <p
-                  className="pointer-events-none absolute left-0 right-0 text-center text-sm font-normal text-white/70 opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100"
+                {/* Descriptor — always visible on mobile, hover-reveal on desktop */}
+                <p className="mt-1 text-sm font-normal text-white/70 md:pointer-events-none md:absolute md:left-0 md:right-0 md:mt-0 md:text-center md:opacity-0 md:transition-opacity md:duration-250 md:ease-out md:group-hover:opacity-100"
                   style={{ bottom: "-28px" }}
                 >
                   {item.descriptor}
