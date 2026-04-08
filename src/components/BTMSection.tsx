@@ -12,11 +12,11 @@ const blocks = [
     ],
   },
   {
-    headline: "Tier IV Reliability, Grid-Independent",
+    headline: "Up to Tier IV Reliability, Grid-Independent",
     subheadline: "Best-in-class uptime with zero exposure to grid instability",
     details: [
       "Fully redundant design with multiple independent generation trains",
-      "Redundant fuel supply including onsite storage for Tier IV continuity",
+      "Redundant fuel supply including onsite storage for up to Tier IV continuity",
     ],
   },
   {
@@ -39,7 +39,7 @@ const blocks = [
     headline: "Price Certainty",
     subheadline: "Fixed, known pricing in a market defined by uncertainty",
     details: [
-      "BTM contracts are all-in and fixed — grid pricing shifts unpredictably with load step changes",
+      "BTM contracts are all-in and fixed with gas adder — grid pricing shifts unpredictably with load step changes",
       "Aprium owns and operates assets, directly aligning our incentives with customer outcomes",
     ],
   },

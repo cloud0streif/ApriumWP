@@ -9,7 +9,7 @@ const stats = [
     descriptor: "vs. 4–15 years for traditional grid-tied builds",
   },
   {
-    stat: "Tier IV",
+    stat: "Up To Tier\u00A0IV",
     label: "Grid-Independent Reliability",
     descriptor: "Best-in-class uptime with zero grid exposure",
   },

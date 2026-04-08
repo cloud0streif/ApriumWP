@@ -13,6 +13,14 @@ const teamMembers = [
     bio: "Martijn Dekker brings over 30 years of extensive leadership experience in the energy industry covering all aspects of upstream, midstream oil and gas, gas to liquids, carbon markets, and developing clean energy strategies. Martijn earned an MS in Chemical Engineering from the University of Technology Eindhoven, and an MS in Business Management from Aberdeen University.",
   },
   {
+    name: "Drew Lichter",
+    role: "President",
+    initials: "DL",
+    src: "/team/drew-lichter.jpg",
+    objectPosition: "top",
+    bio: "Drew has 25+ years experience in the commodities space, beginning as an options trader and member of the Chicago Board of Trade, Commodity Options Desk Head at RBC Capital Markets, Head of Corporate Finance at AK Steel, and senior positions at Northwind Resources and Mobius Risk Group. He has extensive experience in structuring and negotiating long-term offtake agreements; debt, equity, and credit for trade, project, and corporate finance; optimization of energy assets; and corporate leadership and governance. He holds a BA in Economics from DePauw University.",
+  },
+  {
     name: "Michael Neese",
     role: "CTO",
     initials: "MN",
@@ -20,14 +28,6 @@ const teamMembers = [
     objectPosition: "50% 20%",
     scale: "170",
     bio: "Michael Neese has more than 30 years of industry expertise across multiple disciplines including water and wastewater treatment, groundwater remediation, aquifer storage and recovery, hazardous waste disposal, power generation and distribution, environmental engineering, and large utilities. Mr. Neese earned a BS in Agricultural Engineering from Texas Tech University.",
-  },
-  {
-    name: "Drew Lichter",
-    role: "President",
-    initials: "DL",
-    src: "/team/drew-lichter.jpg",
-    objectPosition: "top",
-    bio: "Drew has 25+ years experience in the commodities space, beginning as an options trader and member of the Chicago Board of Trade, Commodity Options Desk Head at RBC Capital Markets, Head of Corporate Finance at AK Steel, and senior positions at Northwind Resources and Mobius Risk Group. He has extensive experience in structuring and negotiating long-term offtake agreements; debt, equity, and credit for trade, project, and corporate finance; optimization of energy assets; and corporate leadership and governance. He holds a BA in Economics from DePauw University.",
   },
   {
     name: "Ondrej Sestak",
