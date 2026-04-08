@@ -125,7 +125,7 @@ function BioModal({
                 alt={member.name}
                 width={96}
                 height={96}
-                className={`h-full w-full ${member.isLogo ? "object-contain p-2" : "object-cover"}`}
+                className="h-full w-full object-cover"
                 style={{
                   ...(member.objectPosition ? { objectPosition: member.objectPosition } : {}),
                   ...(member.scale
@@ -216,7 +216,7 @@ export default function Team() {
                         alt={member.name}
                         width={112}
                         height={112}
-                        className={`h-full w-full ${member.isLogo ? "object-contain p-3" : "object-cover"}`}
+                        className="h-full w-full object-cover"
                         style={{
                           ...(member.objectPosition ? { objectPosition: member.objectPosition } : {}),
                           ...(member.scale
