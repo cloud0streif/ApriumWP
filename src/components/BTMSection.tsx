@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const blocks = [
   {
     headline: "Power in 18–36 Months",
-    subheadline: "Not the 4–15 years of traditional grid-tied builds",
+    subheadline: "Not the 4–10 years of traditional grid-tied builds",
     details: [
       "Interconnection queues eliminated entirely",
       "Permitting processes streamlined through established regulatory relationships",

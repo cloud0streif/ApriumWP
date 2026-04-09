@@ -6,7 +6,7 @@ const stats = [
   {
     stat: "18–36 Mo",
     label: "Speed to Power",
-    descriptor: "vs. 4–15 years for traditional grid-tied builds",
+    descriptor: "vs. 4–10 years for traditional grid-tied builds",
   },
   {
     stat: "Up To Tier\u00A0IV",
