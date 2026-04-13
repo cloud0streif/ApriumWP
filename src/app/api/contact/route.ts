@@ -1,7 +1,11 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error("RESEND_API_KEY is not set");
+  return new Resend(key);
+}
 
 function sanitize(str: string | undefined): string {
   return (str || "").replace(/</g, "&lt;").replace(/>/g, "&gt;").trim().slice(0, 2000);
@@ -31,7 +35,7 @@ export async function POST(req: Request) {
       );
     }
 
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Aprium Website <noreply@aprium.ai>",
       to: ["drew@aprium.ai", "ondrej@aprium.ai"],
       replyTo: sEmail,
