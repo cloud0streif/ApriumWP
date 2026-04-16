@@ -156,24 +156,24 @@ function BioModal({
           <p className="text-center text-sm text-aprium-orange">{member.role}</p>
         </div>
 
-        {/* Scrollable bio region with bottom fade */}
-        <div className="relative min-h-0 flex-1">
-          <div className="bio-scroll h-full overflow-y-auto px-8 pb-8 pt-4">
-            {member.bio ? (
-              member.bio
-                .split("\n")
-                .filter((p) => p.trim())
-                .map((paragraph, i) => (
-                  <p key={i} className="mb-4 text-sm leading-relaxed text-gray-600">
-                    {paragraph}
-                  </p>
-                ))
-            ) : (
-              <p className="text-center text-sm italic text-gray-400">Bio coming soon.</p>
-            )}
-          </div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 rounded-b-xl bg-gradient-to-t from-white to-transparent" />
+        {/* Scrollable bio region */}
+        <div className="bio-scroll min-h-0 flex-1 overflow-y-auto px-8 pb-8 pt-4">
+          {member.bio ? (
+            member.bio
+              .split("\n")
+              .filter((p) => p.trim())
+              .map((paragraph, i) => (
+                <p key={i} className="mb-4 text-sm leading-relaxed text-gray-600">
+                  {paragraph}
+                </p>
+              ))
+          ) : (
+            <p className="text-center text-sm italic text-gray-400">Bio coming soon.</p>
+          )}
         </div>
+
+        {/* Bottom fade gradient — anchored to the card, over the scroll region */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 rounded-b-xl bg-gradient-to-t from-white to-transparent" />
       </div>
     </div>
   );
