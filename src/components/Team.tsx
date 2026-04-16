@@ -97,68 +97,83 @@ function BioModal({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-200 ${
+      className={`fixed inset-0 z-50 flex items-end justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-200 sm:items-center ${
         closing ? "opacity-0" : "opacity-100"
       }`}
       onClick={handleClose}
     >
       <div
-        className={`relative mx-4 w-full max-w-lg rounded-xl bg-white p-8 shadow-2xl transition-all duration-200 ease-out ${animClass}`}
+        className={`relative flex w-full max-h-[90vh] flex-col rounded-t-xl rounded-b-none bg-white shadow-2xl transition-all duration-200 ease-out sm:mx-4 sm:max-w-lg sm:max-h-[85vh] sm:rounded-xl ${animClass}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
-        <button
-          onClick={handleClose}
-          className="absolute right-4 top-4 text-gray-400 transition-colors hover:text-gray-600"
-          aria-label="Close"
-        >
-          <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-
-        {/* Photo */}
-        <div className="mb-4 flex justify-center">
-          {member.src ? (
-            <div className="h-24 w-24 overflow-hidden rounded-lg border-2 border-aprium-purple">
-              <Image
-                src={member.src}
-                alt={member.name}
-                width={96}
-                height={96}
-                className="h-full w-full object-cover"
-                style={{
-                  ...(member.objectPosition ? { objectPosition: member.objectPosition } : {}),
-                  ...(member.scale
-                    ? {
-                        transform: `scale(${Number(member.scale) / 100})`,
-                        transformOrigin: member.objectPosition || "center",
-                      }
-                    : {}),
-                }}
+        {/* Header (photo, name, title) — stays visible while bio scrolls */}
+        <div className="relative border-b border-gray-200 px-8 pb-4 pt-8">
+          {/* Close button */}
+          <button
+            onClick={handleClose}
+            className="absolute right-4 top-4 text-gray-400 transition-colors hover:text-gray-600"
+            aria-label="Close"
+          >
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
               />
-            </div>
-          ) : (
-            <div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-aprium-purple bg-aprium-purple/5">
-              <span className="text-2xl font-bold text-aprium-purple">{member.initials}</span>
-            </div>
-          )}
+            </svg>
+          </button>
+
+          {/* Photo */}
+          <div className="mb-4 flex justify-center">
+            {member.src ? (
+              <div className="h-24 w-24 overflow-hidden rounded-lg border-2 border-aprium-purple">
+                <Image
+                  src={member.src}
+                  alt={member.name}
+                  width={96}
+                  height={96}
+                  className="h-full w-full object-cover"
+                  style={{
+                    ...(member.objectPosition ? { objectPosition: member.objectPosition } : {}),
+                    ...(member.scale
+                      ? {
+                          transform: `scale(${Number(member.scale) / 100})`,
+                          transformOrigin: member.objectPosition || "center",
+                        }
+                      : {}),
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-aprium-purple bg-aprium-purple/5">
+                <span className="text-2xl font-bold text-aprium-purple">{member.initials}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Name and title */}
+          <h3 className="text-center text-lg font-bold text-aprium-purple">{member.name}</h3>
+          <p className="text-center text-sm text-aprium-orange">{member.role}</p>
         </div>
 
-        {/* Name and title */}
-        <h3 className="text-center text-lg font-bold text-aprium-purple">{member.name}</h3>
-        <p className="mb-4 text-center text-sm text-aprium-orange">{member.role}</p>
-
-        {/* Bio */}
-        {member.bio ? (
-          <p className="text-sm leading-relaxed text-gray-600">{member.bio}</p>
-        ) : (
-          <p className="text-center text-sm italic text-gray-400">Bio coming soon.</p>
-        )}
+        {/* Scrollable bio region with bottom fade */}
+        <div className="relative min-h-0 flex-1">
+          <div className="bio-scroll h-full overflow-y-auto px-8 pb-8 pt-4">
+            {member.bio ? (
+              member.bio
+                .split("\n")
+                .filter((p) => p.trim())
+                .map((paragraph, i) => (
+                  <p key={i} className="mb-4 text-sm leading-relaxed text-gray-600">
+                    {paragraph}
+                  </p>
+                ))
+            ) : (
+              <p className="text-center text-sm italic text-gray-400">Bio coming soon.</p>
+            )}
+          </div>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 rounded-b-xl bg-gradient-to-t from-white to-transparent" />
+        </div>
       </div>
     </div>
   );
