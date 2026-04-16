@@ -59,7 +59,12 @@ const teamMembers = [
     initials: "KP",
     src: "/team/kevin-paley.jpg",
     objectPosition: "center 15%",
-    bio: "",
+    bio: `Kevin Paley is a senior energy markets executive with more than 35 years of experience optimizing, trading, and managing risk across power, natural gas, environmental, and broader commodity markets. He currently serves as an adviser and principal investor in businesses across the trading, risk management, and commodities sectors.
+Mr. Paley brings deep expertise in power markets, risk management, dispatch economics, structured transactions, and commercial strategy that is directly relevant to behind-the-meter generation and large-scale power solutions for data centers. Over the course of his career, he has consistently built and scaled businesses at the intersection of physical infrastructure, market optionality, and disciplined risk-taking.
+From 2008 to 2017, Mr. Paley was a Managing Director and Global Head of Commodities Trading at Royal Bank of Canada, where he founded and expanded the bank’s energy trading and environmental businesses and ultimately oversaw the broader commodities platform. During his tenure, he expanded market presence across multiple ISOs, built an industry-leading environmental desk, restructured and grew the metals business, and significantly enhanced risk reporting and controls.
+Earlier in his career, Mr. Paley headed power, environmental, and cross-commodity trading at Lehman Brothers, where he built a high-performing multi-location team. Before that, he served as Senior Vice President and General Manager of Power Trading and Marketing at Cinergy Corp., now Duke Energy, where he helped build the trading and risk platform, transformed the organization’s risk culture, and materially increased profitability. He also served as Vice President of bandwidth markets at Cable & Wireless and head of natural gas trading at Williams Energy.
+Mr. Paley earned a B.A. in Economics from Vanderbilt University
+`,
   },
 ];
 
