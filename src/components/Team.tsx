@@ -10,7 +10,12 @@ const teamMembers = [
     initials: "MD",
     src: "/team/martijn-dekker.jpg",
     objectPosition: "",
-    bio: "Martijn Dekker brings over 30 years of extensive leadership experience in the energy industry covering all aspects of upstream, midstream oil and gas, gas to liquids, carbon markets, and developing clean energy strategies. Martijn earned an MS in Chemical Engineering from the University of Technology Eindhoven, and an MS in Business Management from Aberdeen University.",
+    bio: `Martijn Dekker is a senior energy executive with over 30 years of experience leading the design, development, and delivery of large-scale capital projects across upstream, midstream, and downstream energy.
+At Aprium, Martijn serves as CEO, responsible for corporate strategy and for leading all project development, engineering, and operations. He ensures the company delivers industrial grade, behind the meter utility systems with the speed, reliability, and execution standards expected by institutional investors
+Martijn spent 25 years at Shell, progressing from project manager to senior executive roles with full life cycle responsibility for major energy assets. He led large offshore developments in the Gulf of Mexico, including multi billion dollar projects from feasibility through execution, and later oversaw Shell's global technology portfolio, advancing new technologies and building emerging business lines. In his most recent role, he served as Vice President Strategy & Portfolio for Shell's global Projects and Technology organization, shaping strategy and capital allocation for Shell's multi-billion-dollar annual capital projects program and technology budget.
+Across these roles, Martijn managed the capital programs and led large, cross-functional teams through development, EPC execution, and operational handover, with a consistent focus on capital discipline, technical rigor, and delivery certainty.
+Martijn is Co-founder and Managing Partner of Aurivos, where he led the acquisition and turnaround of undervalued Permian Basin assets, building an upstream platform with significant growth potential. He also co-founded ZeroSix, a digital platform that helps project developers create high-integrity, verifiable carbon credits in the voluntary carbon market, and serves as a non-executive director of Nasdaq-listed Verde Clean Fuels (VGAS).
+Martijn holds an MS in Chemical Engineering from Eindhoven University of Technology and an MS in Business Management from the University of Aberdeen.`,
   },
   {
     name: "Drew Lichter",
@@ -18,7 +23,13 @@ const teamMembers = [
     initials: "DL",
     src: "/team/drew-lichter.jpg",
     objectPosition: "top",
-    bio: "Drew has 25+ years experience in the commodities space, beginning as an options trader and member of the Chicago Board of Trade, Commodity Options Desk Head at RBC Capital Markets, Head of Corporate Finance at AK Steel, and senior positions at Northwind Resources and Mobius Risk Group. He has extensive experience in structuring and negotiating long-term offtake agreements; debt, equity, and credit for trade, project, and corporate finance; optimization of energy assets; and corporate leadership and governance. He holds a BA in Economics from DePauw University.",
+    bio: `Drew is an energy and commodities executive with over 25 years of experience across trading, corporate finance, and commercial leadership. At Aprium, Drew serves as President, responsible for corporate strategy, business development, capital formation, and supply chain. In this role, he leads sales, partnerships, corporate development, financial analysis, commercial structuring, and investor relations.
+Drew began his career as an options trader and member of the Chicago Board of Trade. He later served as Desk Head for West Power and Commodity Options at RBC Capital Markets, where he led trading, analytics, and risk management for U.S. power and emissions markets.
+Prior to RBC he co-founded and served as EVP of Trading and Risk Management at Northwind Resources, a physical and financial natural gas trading and supply company. Under his leadership, Northwind grew into a top ten trader by volume on the CME and Intercontinental Exchange and a leading commercial and industrial supplier in Midcontinent gas markets, culminating in a successful exit.
+He also held roles at AK Steel, where he was responsible for corporate development, commodities risk management, and oversight of subsidiaries and joint ventures, and at Mobius Risk Group, where as VP of Corporate Strategy and Development he advised energy and commodities companies on commercial and risk management strategy while helping build and scale new business lines.
+Drew has structured and negotiated long-term offtake agreements, arranged and executed debt and equity financings, and led M&A transactions from sourcing through integration. His experience spans commodities risk management, energy asset optimization, and large-scale capital deployment across both entrepreneurial ventures and large institutional platforms.
+He has served as a Board Member and Advisor to privately held companies from start up to scale across mining, trading, clean energy, and electrical steel processing.
+Drew holds a BA in Economics from DePauw University.`,
   },
   {
     name: "Michael Neese",
